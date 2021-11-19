@@ -9,13 +9,6 @@
 #define MAX_NAME_LENGTH 255
 
 typedef struct {
-  char *nationalID;
-  char *firstName;
-  char *lastName;
-  float amount;
-} account;
-
-typedef struct {
   account *accounts;
   size_t accountsSize;
   int accountsCount;
@@ -25,7 +18,7 @@ void startBank();
 
 void createBankAccount(bank *bankState);
 
-void createMultipleAccounts(bank *bankState);
+void createMultipleBankAccounts(bank *bankState);
 
 /**
  * finds ank account by national id

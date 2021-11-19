@@ -8,6 +8,7 @@
 #include "bank.h"
 #include "command.h"
 #include "helpers.h"
+#include "account.h"
 
 void initializeBankState(bank *b) {
   int initialSize = 10;
@@ -18,7 +19,7 @@ void initializeBankState(bank *b) {
 void listMenu(bank *b) {
   command commands[] = {
       createCommand("create account", "Create a bank account", createBankAccount),
-      createCommand("create accounts", "Create multiple accounts", createMultipleAccounts),
+      createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
   showAndHandleCommands(commandsLength, commands, b, 1);
@@ -66,7 +67,7 @@ void createBankAccount(bank *b) {
          newAccount.amount);
 }
 
-void createMultipleAccounts(bank *bankState) {
+void createMultipleBankAccounts(bank *bankState) {
   int count;
   getIntFromUser(&count, "Enter number of accounts to create: ");
   for (int i = 0; i < count; ++i) {
@@ -75,26 +76,4 @@ void createMultipleAccounts(bank *bankState) {
   }
 }
 
-account createAccount(char *nationalID, char *firstName, char *lastName, float initialAmount) {
-  account result;
-  result.amount = initialAmount;
 
-  result.nationalID = malloc(strlen(nationalID) * sizeof(char));
-  result.firstName = malloc(strlen(firstName) * sizeof(char));
-  result.lastName = malloc(strlen(lastName) * sizeof(char));
-  strcpy(result.nationalID, nationalID);
-  strcpy(result.firstName, firstName);
-  strcpy(result.lastName, lastName);
-  return result;
-}
-int findAccountIndexByID(bank *bankState, char *id) {
-  if (bankState->accountsSize != 0) {
-    for (int i = 0; i < bankState->accountsCount; ++i) {
-      int isSame = strcmp(bankState->accounts[i].nationalID, id);
-      if (isSame == 0) {
-        return i;
-      }
-    }
-  }
-  return -1;
-}
