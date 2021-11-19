@@ -6,6 +6,21 @@
 #define YOUCODE_BANK__ACCOUNT_H_
 #include "bank.h"
 
-void withdraw(bank *bankState);
+void withdraw(bank *state);
 void deposit(bank *bankState);
+
+/**
+ * finds ank account by national id
+ * @param accounts
+ * @return -1 for not found or index
+ */
+int findAccountIndexByID(bank *bankState, char *id);
+
+/**
+ * find account by id entered by user
+ * @param bankState
+ * @return
+ */
+int getAccountFromUserInput(bank *bankState);
+
 #endif //YOUCODE_BANK__ACCOUNT_H_
