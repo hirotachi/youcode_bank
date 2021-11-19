@@ -9,6 +9,13 @@
 #define MAX_NAME_LENGTH 255
 
 typedef struct {
+  char *nationalID;
+  char *firstName;
+  char *lastName;
+  float amount;
+} account;
+
+typedef struct {
   account *accounts;
   size_t accountsSize;
   int accountsCount;

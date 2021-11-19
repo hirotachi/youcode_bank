@@ -6,6 +6,7 @@
 #include <string.h>
 #include "account.h"
 #include "bank.h"
+#include "helpers.h"
 
 account createAccount(char *nationalID, char *firstName, char *lastName, float initialAmount) {
   account result;
@@ -29,4 +30,48 @@ int findAccountIndexByID(bank *bankState, char *id) {
     }
   }
   return -1;
+}
+
+void withdraw(bank *bankState) {
+  if (bankState->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return;
+  }
+  char nationalID[MAX_NATIONAL_ID_LENGTH];
+  getStringFromUser(nationalID, "Please Enter account's national ID: ", MAX_NATIONAL_ID_LENGTH);
+  int accountIndex = findAccountIndexByID(bankState, nationalID);
+  if (accountIndex == -1) {
+    printf("account with id '%s' doesnt exist.\n", nationalID);
+    return withdraw(bankState);
+  }
+
+  account acc = bankState->accounts[accountIndex];
+  char message[50];
+  sprintf(message, "Enter amount to withdraw max is '%.2f$': ", acc.amount);
+
+  float amountToWithdraw;
+
+  int canWithdraw = 0;
+
+  do {
+    getFloatFromUser(&amountToWithdraw, message);
+    if (amountToWithdraw > acc.amount) {
+      printf("cannot withdraw more than '%.2f$'.\n", acc.amount);
+    } else {
+      canWithdraw = 1;
+    }
+  } while (canWithdraw == 0);
+  acc.amount -= amountToWithdraw;
+  bankState->accounts[accountIndex] = acc;
+  printf("'%.2f$' has been withdrawn successfully from account '%s' of user '%s %s' new amount is '%.2f$'.\n",
+         amountToWithdraw,
+         acc.nationalID,
+         acc.lastName,
+         acc.firstName,
+         acc.amount
+  );
+}
+
+void deposit(bank *bankState) {
+
 }

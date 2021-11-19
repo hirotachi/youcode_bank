@@ -4,11 +4,8 @@
 
 #ifndef YOUCODE_BANK__ACCOUNT_H_
 #define YOUCODE_BANK__ACCOUNT_H_
-typedef struct {
-  char *nationalID;
-  char *firstName;
-  char *lastName;
-  float amount;
-} account;
+#include "bank.h"
 
+void withdraw(bank *bankState);
+void deposit(bank *bankState);
 #endif //YOUCODE_BANK__ACCOUNT_H_

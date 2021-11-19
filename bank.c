@@ -20,6 +20,7 @@ void listMenu(bank *b) {
   command commands[] = {
       createCommand("create account", "Create a bank account", createBankAccount),
       createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
+      createCommand("withdraw", "Withdraw from an account", withdraw),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
   showAndHandleCommands(commandsLength, commands, b, 1);
@@ -36,7 +37,7 @@ void startBank() {
 
 void createBankAccount(bank *b) {
   char nationalID[MAX_NATIONAL_ID_LENGTH];
-  getInputFromUser(nationalID, "Please Enter national ID: ", MAX_NATIONAL_ID_LENGTH);
+  getStringFromUser(nationalID, "Please Enter national ID: ", MAX_NATIONAL_ID_LENGTH);
 
   int index = findAccountIndexByID(b, nationalID);
   if (index != -1) {
@@ -45,8 +46,8 @@ void createBankAccount(bank *b) {
   }
   char firstName[MAX_NAME_LENGTH], lastName[MAX_NAME_LENGTH];
   float initialAmount = 0;
-  getInputFromUser(firstName, "Please Enter first name: ", MAX_NAME_LENGTH);
-  getInputFromUser(lastName, "Please Enter last name: ", MAX_NAME_LENGTH);
+  getStringFromUser(firstName, "Please Enter first name: ", MAX_NAME_LENGTH);
+  getStringFromUser(lastName, "Please Enter last name: ", MAX_NAME_LENGTH);
   getFloatFromUser(&initialAmount, "Please Enter initial amount for this account: ");
 
   if (b->accountsSize == b->accountsCount) {

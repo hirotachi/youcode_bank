@@ -32,7 +32,7 @@ void showAndHandleCommands(size_t length, command commands[], bank *bankState, i
     printf("Please Enter a command from the list.\n");
   }
   char enteredCommand[MAX_COMMAND_LENGTH];
-  getInputFromUser(enteredCommand, NULL, MAX_COMMAND_LENGTH);
+  getStringFromUser(enteredCommand, NULL, MAX_COMMAND_LENGTH);
 
   int isCommandFound = 0; // to render error in case command is not found
   for (int i = 0; i < length; ++i) {
