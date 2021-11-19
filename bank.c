@@ -14,6 +14,7 @@ void initializeBankState(bank *b) {
   int initialSize = 10;
   b->accountsSize = initialSize;
   b->accountsCount = 0;
+  b->sorted = 0;
   b->accounts = malloc(initialSize * sizeof(account));
 }
 void listMenu(bank *b) {
@@ -23,6 +24,7 @@ void listMenu(bank *b) {
       createCommand("withdraw", "Withdraw from an account", withdraw),
       createCommand("deposit", "Deposit money to an account", deposit),
       createCommand("search", "Search for a bank account by national ID", search),
+      createCommand("list a", "List bank accounts by ascending order", listAccountsAscending),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
   showAndHandleCommands(commandsLength, commands, b, 1);
@@ -63,6 +65,7 @@ void createBankAccount(bank *b) {
   account newAccount = createAccount(nationalID, firstName, lastName, initialAmount);
   b->accounts[b->accountsCount] = newAccount;
   b->accountsCount++;
+  b->sorted = 0;
   printf("Account with ID '%s' for '%s %s' and amount of '%.2f$' has been created successfully!!\n",
          newAccount.nationalID,
          newAccount.lastName,

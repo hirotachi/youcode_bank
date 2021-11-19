@@ -19,6 +19,7 @@ typedef struct {
   account *accounts;
   size_t accountsSize;
   int accountsCount;
+  int sorted; // whether the array is sorted or not
 } bank;
 
 void startBank();

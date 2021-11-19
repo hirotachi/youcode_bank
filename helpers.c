@@ -24,3 +24,33 @@ void getIntFromUser(int *var, char *message) {
 }
 
 
+// sorting
+
+void swap(account *account1, account *account2) {
+  account temp = *account1;
+  *account1 = *account2;
+  *account2 = temp;
+}
+
+void quickSort(account *accounts, int low, int high) {
+  if (low < high) {
+    int pi = partition(accounts, low, high);
+    quickSort(accounts, low, pi - 1);
+    quickSort(accounts, pi + 1, high);
+  }
+}
+
+int partition(account *accounts, int low, int high) {
+  account pivot = accounts[high];
+  int i = low - 1;
+  for (int j = low; j <= high; ++j) {
+    if (accounts[j].amount < pivot.amount) {
+      i++;
+      swap(&accounts[i], &accounts[j]);
+    }
+  }
+  swap(&accounts[i + 1], &accounts[high]);
+  return i + 1;
+}
+
+

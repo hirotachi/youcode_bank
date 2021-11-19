@@ -71,6 +71,9 @@ void withdraw(bank *state) {
 
   acc.amount -= amountToWithdraw;
   state->accounts[accountIndex] = acc;
+
+  state->sorted = 0; // mark array as unsorted
+
   printf("'%.2f$' has been withdrawn successfully from account '%s' of user '%s %s' new amount is '%.2f$'.\n",
          amountToWithdraw,
          acc.nationalID,
@@ -101,6 +104,8 @@ void deposit(bank *state) {
   acc.amount += amountToAdd;
   state->accounts[accountIndex] = acc;
 
+  state->sorted = 0; // mark array as unsorted
+
   printf("'%.2f$' has been added to account '%s' for '%s %s' successfully new amount is '%.2f$'.\n",
          amountToAdd,
          acc.nationalID,
@@ -119,5 +124,31 @@ void search(bank *state) {
   account acc = state->accounts[accountIndex];
   printf("This Account belongs to '%s %s' and has '%.2f$'.\n", acc.lastName, acc.firstName, acc.amount);
 }
+
+void listAccountsAscending(bank *state) {
+  if (state->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return;
+  }
+  if (state->accountsCount > 1 && state->sorted == 0) {
+    // only sort when there is more than one account and if the array is not sorted already
+    sortAccounts(state);
+    state->sorted = 1;
+  }
+  printf("===========================================\n");
+  for (int i = 0; i < state->accountsCount; ++i) {
+    account acc = state->accounts[i];
+    printf("%d- ID:'%s' Name:'%s %s' amount:'%.2f$'\n", i + 1, acc.nationalID, acc.lastName, acc.firstName, acc.amount);
+  }
+  printf("===========================================\n");
+}
+
+void sortAccounts(bank *state) {
+  if (state->accountsCount == 0) return;
+  quickSort(state->accounts, 0, state->accountsCount - 1);
+}
+
+
+
 
 

@@ -24,5 +24,8 @@ int findAccountIndexByID(bank *bankState, char *id);
 int getAccountFromUserInput(bank *bankState);
 
 void search(bank *state);
+void listAccountsAscending(bank *state);
+void listAccountsDescending(bank *state);
+void sortAccounts(bank *state);
 
 #endif //YOUCODE_BANK__ACCOUNT_H_
