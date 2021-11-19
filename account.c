@@ -108,3 +108,16 @@ void deposit(bank *state) {
          acc.firstName,
          acc.amount);
 }
+
+void search(bank *state) {
+  if (state->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return;
+  }
+  int accountIndex = getAccountFromUserInput(state);
+  if (accountIndex == -1) return;
+  account acc = state->accounts[accountIndex];
+  printf("This Account belongs to '%s %s' and has '%.2f$'.\n", acc.lastName, acc.firstName, acc.amount);
+}
+
+

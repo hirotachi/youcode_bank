@@ -29,6 +29,7 @@ void showAndHandleCommands(size_t length, command commands[], bank *bankState, i
       command com = commands[i];
       printf("%s - %s.\n", com.name, com.description);
     }
+    printf("\n");
     printf("Please Enter a command from the list.\n");
   }
   char enteredCommand[MAX_COMMAND_LENGTH];

@@ -22,6 +22,7 @@ void listMenu(bank *b) {
       createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
       createCommand("withdraw", "Withdraw from an account", withdraw),
       createCommand("deposit", "Deposit money to an account", deposit),
+      createCommand("search", "Search for a bank account by national ID", search),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
   showAndHandleCommands(commandsLength, commands, b, 1);
