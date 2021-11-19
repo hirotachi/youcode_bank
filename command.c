@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "command.h"
+#include "helpers.h"
+#include "bank.h"
 
 command createCommand(char *name, char *description, void (*handler)()) {
   command result;
@@ -20,36 +22,32 @@ command createCommand(char *name, char *description, void (*handler)()) {
   return result;
 }
 
-void getInputFromUser(char *var) {
-  printf("> ");
-  fgets(var, MAX_COMMAND_LENGTH, stdin);
-  var[strcspn(var, "\n")] = '\0'; // fix newline issue
-}
-
-void showAndHandleCommands(command commands[]) {
-  int size = sizeof(commands) / sizeof(commands[0]);
-  for (int i = 0; i < size; ++i) {
-    command com = commands[i];
-    printf("%s - %s.\n", com.name, com.description);
+void showAndHandleCommands(size_t length, command commands[], bank *bankState, int showList) {
+  printf("\n");
+  if (showList != 0) {
+    for (int i = 0; i < length; ++i) {
+      command com = commands[i];
+      printf("%s - %s.\n", com.name, com.description);
+    }
+    printf("Please Enter a command from the list.\n");
   }
-  printf("Please Enter a command from the list.\n");
   char enteredCommand[MAX_COMMAND_LENGTH];
-  getInputFromUser(enteredCommand);
+  getInputFromUser(enteredCommand, NULL, MAX_COMMAND_LENGTH);
 
   int isCommandFound = 0; // to render error in case command is not found
-  for (int i = 0; i < size; ++i) {
+  for (int i = 0; i < length; ++i) {
     command com = commands[i];
     int isSame = strcmp(enteredCommand, com.name);
     if (isSame == 0) {
       isCommandFound = 1;
-      com.handler();
-      showAndHandleCommands(commands);
+      com.handler(bankState);
+      showAndHandleCommands(length, commands, bankState, 1);
       break;
     }
   }
 
   if (isCommandFound == 0) {
     printf("Unknown command '%s', please enter a command from the list.\n", enteredCommand);
-    showAndHandleCommands(commands);
+    showAndHandleCommands(length, commands, bankState, 0);
   }
 }

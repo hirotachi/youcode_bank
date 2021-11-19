@@ -5,6 +5,7 @@
 #ifndef YOUCODE_BANK__COMMAND_H_
 #define YOUCODE_BANK__COMMAND_H_
 
+#include "bank.h"
 #define MAX_COMMAND_LENGTH 255
 
 typedef struct {
@@ -26,6 +27,6 @@ command createCommand(char name[], char description[], void(*handler)());
  * list commands and wait for user to enter input to be handled by the right command
  * @param commands
  */
-void showAndHandleCommands(command commands[]);
+void showAndHandleCommands(size_t length, command commands[], bank *bankState, int showList);
 
 #endif //YOUCODE_BANK__COMMAND_H_
