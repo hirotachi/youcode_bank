@@ -140,13 +140,29 @@ void listAccountsAscending(bank *state) {
 }
 
 void sortAccounts(bank *state) {
-  if (state->accountsCount <= 1) return;
-  if (state->sorted == 0) {
-    // only sort when there is more than one account and if the array is not sorted already
-    sortAccounts(state);
-    state->sorted = 1;
-  }
+  if (state->accountsCount <= 1 || state->sorted == 1) return;
+  // only sort when there is more than one account and if the array is not sorted already
   quickSort(state->accounts, 0, state->accountsCount - 1);
+  state->sorted = 1;
+}
+
+void listAccountsDescending(bank *state) {
+  if (state->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return;
+  }
+  sortAccounts(state);
+  printf("===========================================\n");
+  for (int i = state->accountsCount - 1; i >= 0; --i) {
+    account acc = state->accounts[i];
+    printf("%d- ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
+           state->accountsCount - i,
+           acc.nationalID,
+           acc.lastName,
+           acc.firstName,
+           acc.amount);
+  }
+  printf("===========================================\n");
 }
 
 

@@ -25,6 +25,7 @@ void listMenu(bank *b) {
       createCommand("deposit", "Deposit money to an account", deposit),
       createCommand("search", "Search for a bank account by national ID", search),
       createCommand("list a", "List bank accounts by ascending order", listAccountsAscending),
+      createCommand("list d", "List bank accounts by descending order", listAccountsDescending),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
   showAndHandleCommands(commandsLength, commands, b, 1);
