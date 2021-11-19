@@ -21,6 +21,7 @@ void listMenu(bank *b) {
       createCommand("create account", "Create a bank account", createBankAccount),
       createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
       createCommand("withdraw", "Withdraw from an account", withdraw),
+      createCommand("deposit", "Deposit money to an account", deposit),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
   showAndHandleCommands(commandsLength, commands, b, 1);

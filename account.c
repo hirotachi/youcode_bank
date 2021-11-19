@@ -37,7 +37,7 @@ int getAccountFromUserInput(bank *b) {
   getStringFromUser(nationalID, "Please Enter account's national ID: ", MAX_NATIONAL_ID_LENGTH);
   int accountIndex = findAccountIndexByID(b, nationalID);
   if (accountIndex != -1) return accountIndex;
-  
+
   printf("account with id '%s' doesnt exist.\n", nationalID);
   return -1;
 }
@@ -60,7 +60,7 @@ void withdraw(bank *state) {
 
   int canWithdraw = 0;
 
-  do {
+  do { // avoid withdrawing more than the account has
     getFloatFromUser(&amountToWithdraw, message);
     if (amountToWithdraw > acc.amount) {
       printf("cannot withdraw more than '%.2f$'.\n", acc.amount);
@@ -68,6 +68,7 @@ void withdraw(bank *state) {
       canWithdraw = 1;
     }
   } while (canWithdraw == 0);
+
   acc.amount -= amountToWithdraw;
   state->accounts[accountIndex] = acc;
   printf("'%.2f$' has been withdrawn successfully from account '%s' of user '%s %s' new amount is '%.2f$'.\n",
@@ -79,6 +80,31 @@ void withdraw(bank *state) {
   );
 }
 
-void deposit(bank *bankState) {
+void deposit(bank *state) {
+  if (state->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return;
+  }
 
+  int accountIndex = getAccountFromUserInput(state);
+//  todo add ability to quit operation
+  if (accountIndex == -1)return withdraw(state);
+
+  account acc = state->accounts[accountIndex];
+  float amountToAdd;
+  do { // in case the user enters 0 or less
+    getFloatFromUser(&amountToAdd, "Enter Amount to deposit: ");
+    if (amountToAdd <= 0) {
+      printf("You're haven't added anything to the account add a positive amount.\n");
+    }
+  } while (amountToAdd <= 0);
+  acc.amount += amountToAdd;
+  state->accounts[accountIndex] = acc;
+
+  printf("'%.2f$' has been added to account '%s' for '%s %s' successfully new amount is '%.2f$'.\n",
+         amountToAdd,
+         acc.nationalID,
+         acc.lastName,
+         acc.firstName,
+         acc.amount);
 }
