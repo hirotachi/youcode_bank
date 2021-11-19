@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include "bank.h"
 //
 // Created by hirotachi on 11/19/21.
 //
 int main() {
-  printf("hello world\n");
+  printf("welcome to the banking program\n");
+  startBank();
   //   welcome message
 // list menu of operations
 //1- create bank account -> get cin check if cin already exists -> if yes -> print error that it exists and rerun last step
