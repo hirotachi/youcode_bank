@@ -59,13 +59,6 @@ void exitProgram(bank *state) {
 }
 
 void cleanMemory(bank *state) {
-//  clean account memory usage
-  for (int i = 0; i < state->accountsCount; ++i) {
-    account acc = state->accounts[i];
-    free(acc.firstName);
-    free(acc.lastName);
-    free(acc.nationalID);
-  }
   free(state->accounts);
 }
 

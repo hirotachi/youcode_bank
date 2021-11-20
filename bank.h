@@ -10,9 +10,9 @@
 #define LOYALTY_BONUS_PERCENTAGE 1.3
 
 typedef struct {
-  char *nationalID;
-  char *firstName;
-  char *lastName;
+  char nationalID[MAX_NATIONAL_ID_LENGTH];
+  char firstName[MAX_NAME_LENGTH];
+  char lastName[MAX_NAME_LENGTH];
   float amount;
 } account;
 
@@ -26,6 +26,7 @@ typedef struct {
 void startBank();
 
 void createBankAccount(bank *bankState);
+void removeBankAccount(bank *state);
 
 void createMultipleBankAccounts(bank *bankState);
 

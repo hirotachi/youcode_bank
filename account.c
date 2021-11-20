@@ -12,9 +12,6 @@ account createAccount(char *nationalID, char *firstName, char *lastName, float i
   account result;
   result.amount = initialAmount;
 
-  result.nationalID = malloc(strlen(nationalID) * sizeof(char));
-  result.firstName = malloc(strlen(firstName) * sizeof(char));
-  result.lastName = malloc(strlen(lastName) * sizeof(char));
   strcpy(result.nationalID, nationalID);
   strcpy(result.firstName, firstName);
   strcpy(result.lastName, lastName);

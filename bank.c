@@ -17,11 +17,13 @@ void initializeBankState(bank *b) {
   b->sorted = 0;
   b->accounts = malloc(initialSize * sizeof(account));
 }
+
 void listMenu(bank *b) {
   char loyaltyDesc[50];
   sprintf(loyaltyDesc, "Adds %.1f%% loyalty bonus to top n accounts", LOYALTY_BONUS_PERCENTAGE);
   command commands[] = {
       createCommand("create account", "Create a bank account", createBankAccount),
+      createCommand("remove account", "Remove a bank account", removeBankAccount),
       createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
       createCommand("withdraw", "Withdraw from an account", withdraw),
       createCommand("deposit", "Deposit money to an account", deposit),
@@ -115,6 +117,34 @@ void addLoyaltyBonus(bank *state) {
     }
   }
   printf("Added loyalty bonus to top %d accounts successfully!!!\n", numberOfAccounts);
+}
+
+void removeBankAccount(bank *state) {
+  if (state->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return;
+  }
+  int accountIndex = getAccountFromUserInput(state);
+  if (accountIndex == -1) return;
+
+//   filter account from array
+  account *accounts = malloc(state->accountsSize * sizeof(account));
+  int index = 0;
+  for (int i = 0; i < state->accountsCount; ++i) {
+    if (accountIndex == i) continue;
+    accounts[index] = state->accounts[i];
+    index++;
+  }
+  state->accountsCount = index;
+  account acc = state->accounts[accountIndex];
+
+  printf("Account with ID '%s' for user '%s %s' has been removed successfully!\n",
+         acc.nationalID,
+         acc.lastName,
+         acc.firstName);
+  free(state->accounts);
+  state->accounts = NULL;
+  state->accounts = accounts;
 }
 
 
