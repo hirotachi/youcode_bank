@@ -27,5 +27,6 @@ void search(bank *state);
 void listAccountsAscending(bank *state);
 void listAccountsDescending(bank *state);
 void sortAccounts(bank *state);
+account createAccount(char *nationalID, char *firstName, char *lastName, float initialAmount);
 
 #endif //YOUCODE_BANK__ACCOUNT_H_

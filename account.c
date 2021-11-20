@@ -134,7 +134,13 @@ void listAccountsAscending(bank *state) {
   printf("===========================================\n");
   for (int i = 0; i < state->accountsCount; ++i) {
     account acc = state->accounts[i];
-    printf("%d- ID:'%s' Name:'%s %s' amount:'%.2f$'\n", i + 1, acc.nationalID, acc.lastName, acc.firstName, acc.amount);
+    printf("%d- ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
+           i + 1,
+           acc.nationalID,
+           acc.lastName,
+           acc.firstName,
+           acc.amount
+    );
   }
   printf("===========================================\n");
 }
@@ -155,12 +161,15 @@ void listAccountsDescending(bank *state) {
   printf("===========================================\n");
   for (int i = state->accountsCount - 1; i >= 0; --i) {
     account acc = state->accounts[i];
+    int order = state->accountsCount - i;
+
     printf("%d- ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
-           state->accountsCount - i,
+           order,
            acc.nationalID,
            acc.lastName,
            acc.firstName,
-           acc.amount);
+           acc.amount
+    );
   }
   printf("===========================================\n");
 }

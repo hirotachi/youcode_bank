@@ -7,6 +7,7 @@
 
 #define MAX_NATIONAL_ID_LENGTH 25
 #define MAX_NAME_LENGTH 255
+#define LOYALTY_BONUS_PERCENTAGE 1.3
 
 typedef struct {
   char *nationalID;
@@ -28,6 +29,9 @@ void createBankAccount(bank *bankState);
 
 void createMultipleBankAccounts(bank *bankState);
 
-account createAccount(char *nationalID, char *firstName, char *lastName, float initialAmount);
-
+/**
+ * adds loyalty bonus to top 3 accounts with the most amount
+ * @param state
+ */
+void addLoyaltyBonus(bank *state);
 #endif //YOUCODE_BANK__BANK_H_

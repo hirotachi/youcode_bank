@@ -18,6 +18,8 @@ void initializeBankState(bank *b) {
   b->accounts = malloc(initialSize * sizeof(account));
 }
 void listMenu(bank *b) {
+  char loyaltyDesc[50];
+  sprintf(loyaltyDesc, "Adds %.1f%% loyalty bonus to top 3 accounts", LOYALTY_BONUS_PERCENTAGE);
   command commands[] = {
       createCommand("create account", "Create a bank account", createBankAccount),
       createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
@@ -26,6 +28,7 @@ void listMenu(bank *b) {
       createCommand("search", "Search for a bank account by national ID", search),
       createCommand("list a", "List bank accounts by ascending order", listAccountsAscending),
       createCommand("list d", "List bank accounts by descending order", listAccountsDescending),
+      createCommand("add loyalty", loyaltyDesc, addLoyaltyBonus),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
   showAndHandleCommands(commandsLength, commands, b, 1);
@@ -81,6 +84,26 @@ void createMultipleBankAccounts(bank *bankState) {
     printf("account (%d) - ", i + 1);
     createBankAccount(bankState);
   }
+}
+
+void addLoyaltyBonus(bank *state) {
+  if (state->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return;
+  }
+
+  sortAccounts(state);
+
+  int numberOfAccounts;
+  getIntFromUser(&numberOfAccounts, "Enter number of accounts to add loyalty bonus to: ");
+  for (int i = state->accountsCount - 1; i >= 0; --i) {
+    int isLoyal = state->accountsCount - i <= numberOfAccounts ? 1 : 0;
+    if (isLoyal == 1) {
+      float amount = state->accounts[i].amount;
+      state->accounts[i].amount = amount + (amount / 100 * LOYALTY_BONUS_PERCENTAGE);
+    }
+  }
+  printf("Added loyalty bonus to top %d accounts successfully!!!\n", numberOfAccounts);
 }
 
 
