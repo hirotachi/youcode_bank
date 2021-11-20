@@ -33,4 +33,6 @@ account createAccount(char *nationalID, char *firstName, char *lastName, float i
 
 void listAscending(bank *state, int start, int end);
 void listDescending(bank *state, int start, int end);
+int findAfterAmountIndex(bank *state);
+
 #endif //YOUCODE_BANK__ACCOUNT_H_

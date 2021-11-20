@@ -149,32 +149,15 @@ void listAccountsDescending(bank *state) {
 }
 
 void listAfterAccountsAscending(bank *state) {
-  if (state->accountsCount == 0) {
-    printf("There are no accounts yet, create an account first.\n");
-    return;
-  }
-  float number;
-  getFloatFromUser(&number, "Enter amount to list after: ");
-  if (number <= 0) {
-    printf("Enter a positive number.\n");
-    return listAfterAccountsAscending(state);
-  }
-  sortAccounts(state);
-
-  float highestAmount = state->accounts[state->accountsCount - 1].amount;
-  if (highestAmount < number) {
-    printf("the highest amount available is '%.2f$'\n", highestAmount);
-    return;
-  }
-//   find index where to start
-  int index = 0;
-  for (int i = 0; i < state->accountsCount; ++i) {
-    if (state->accounts[i].amount >= number) {
-      index = i;
-      break;
-    }
-  }
+  int index = findAfterAmountIndex(state);
+  if (index == -1)return;
   listAscending(state, index, state->accountsCount);
+}
+
+void listAfterAccountsDescending(bank *state) {
+  int index = findAfterAmountIndex(state);
+  if (index == -1)return;
+  listDescending(state, state->accountsCount, index);
 }
 
 void listAscending(bank *state, int start, int end) {
@@ -192,7 +175,6 @@ void listAscending(bank *state, int start, int end) {
   }
   printf("===========================================\n");
 }
-
 void listDescending(bank *state, int start, int end) {
   sortAccounts(state);
   printf("===========================================\n");
@@ -209,6 +191,35 @@ void listDescending(bank *state, int start, int end) {
     );
   }
   printf("===========================================\n");
+}
+
+int findAfterAmountIndex(bank *state) {
+  if (state->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return -1;
+  }
+  float amount;
+  getFloatFromUser(&amount, "Enter amount to list after: ");
+  if (amount <= 0) {
+    printf("Enter a positive amount.\n");
+    return -1;
+  }
+  sortAccounts(state);
+
+  float highestAmount = state->accounts[state->accountsCount - 1].amount;
+  if (highestAmount < amount) {
+    printf("the highest amount available is '%.2f$'\n", highestAmount);
+    return -1;
+  }
+
+  int index = 0;
+  for (int i = 0; i < state->accountsCount; ++i) {
+    if (state->accounts[i].amount >= amount) {
+      index = i;
+      break;
+    }
+  }
+  return index;
 }
 
 

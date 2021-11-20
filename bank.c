@@ -31,6 +31,9 @@ void listMenu(bank *b) {
       createCommand("list aa",
                     "List bank accounts by ascending order after a certain amount",
                     listAfterAccountsAscending),
+      createCommand("list ad",
+                    "List bank accounts by descending order after a certain amount",
+                    listAfterAccountsDescending),
       createCommand("add loyalty", loyaltyDesc, addLoyaltyBonus),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
