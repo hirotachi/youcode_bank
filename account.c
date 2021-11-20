@@ -154,7 +154,7 @@ void listAfterAccountsAscending(bank *state) {
     return;
   }
   float number;
-  getFloatFromUser(&number, "Enter amount to filter by: ");
+  getFloatFromUser(&number, "Enter amount to list after: ");
   if (number <= 0) {
     printf("Enter a positive number.\n");
     return listAfterAccountsAscending(state);
