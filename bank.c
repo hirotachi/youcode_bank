@@ -28,13 +28,18 @@ void listMenu(bank *b) {
       createCommand("search", "Search for a bank account by national ID", search),
       createCommand("list a", "List bank accounts by ascending order", listAccountsAscending),
       createCommand("list d", "List bank accounts by descending order", listAccountsDescending),
-      createCommand("list aa",
-                    "List bank accounts by ascending order after a certain amount",
-                    listAfterAccountsAscending),
-      createCommand("list ad",
-                    "List bank accounts by descending order after a certain amount",
-                    listAfterAccountsDescending),
+      createCommand(
+          "list aa",
+          "List bank accounts by ascending order after a certain amount",
+          listAfterAccountsAscending
+      ),
+      createCommand(
+          "list ad",
+          "List bank accounts by descending order after a certain amount",
+          listAfterAccountsDescending
+      ),
       createCommand("add loyalty", loyaltyDesc, addLoyaltyBonus),
+      createCommand("quit", "exitProgram application", exitProgram),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
   showAndHandleCommands(commandsLength, commands, b, 1);

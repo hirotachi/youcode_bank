@@ -13,4 +13,6 @@ int partition(account accounts[], int low, int high);
 void quickSort(account accounts[], int low, int high);
 void swap(account *account1, account *account2);
 
+void cleanMemory(bank *state);
+void exitProgram(bank *state);
 #endif //YOUCODE_BANK__HELPERS_H_
