@@ -130,19 +130,7 @@ void listAccountsAscending(bank *state) {
     printf("There are no accounts yet, create an account first.\n");
     return;
   }
-  sortAccounts(state);
-  printf("===========================================\n");
-  for (int i = 0; i < state->accountsCount; ++i) {
-    account acc = state->accounts[i];
-    printf("%d- ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
-           i + 1,
-           acc.nationalID,
-           acc.lastName,
-           acc.firstName,
-           acc.amount
-    );
-  }
-  printf("===========================================\n");
+  listAscending(state, 0, state->accountsCount);
 }
 
 void sortAccounts(bank *state) {
@@ -157,9 +145,58 @@ void listAccountsDescending(bank *state) {
     printf("There are no accounts yet, create an account first.\n");
     return;
   }
+  listDescending(state, state->accountsCount, 0);
+}
+
+void listAfterAccountsAscending(bank *state) {
+  if (state->accountsCount == 0) {
+    printf("There are no accounts yet, create an account first.\n");
+    return;
+  }
+  float number;
+  getFloatFromUser(&number, "Enter amount to filter by: ");
+  if (number <= 0) {
+    printf("Enter a positive number.\n");
+    return listAfterAccountsAscending(state);
+  }
+  sortAccounts(state);
+
+  float highestAmount = state->accounts[state->accountsCount - 1].amount;
+  if (highestAmount < number) {
+    printf("the highest amount available is '%.2f$'\n", highestAmount);
+    return;
+  }
+//   find index where to start
+  int index = 0;
+  for (int i = 0; i < state->accountsCount; ++i) {
+    if (state->accounts[i].amount >= number) {
+      index = i;
+      break;
+    }
+  }
+  listAscending(state, index, state->accountsCount);
+}
+
+void listAscending(bank *state, int start, int end) {
   sortAccounts(state);
   printf("===========================================\n");
-  for (int i = state->accountsCount - 1; i >= 0; --i) {
+  for (int i = start; i < end; ++i) {
+    account acc = state->accounts[i];
+    printf("%d- ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
+           i + 1,
+           acc.nationalID,
+           acc.lastName,
+           acc.firstName,
+           acc.amount
+    );
+  }
+  printf("===========================================\n");
+}
+
+void listDescending(bank *state, int start, int end) {
+  sortAccounts(state);
+  printf("===========================================\n");
+  for (int i = start - 1; i >= end; --i) {
     account acc = state->accounts[i];
     int order = state->accountsCount - i;
 

@@ -26,7 +26,11 @@ int getAccountFromUserInput(bank *bankState);
 void search(bank *state);
 void listAccountsAscending(bank *state);
 void listAccountsDescending(bank *state);
+void listAfterAccountsDescending(bank *state);
+void listAfterAccountsAscending(bank *state);
 void sortAccounts(bank *state);
 account createAccount(char *nationalID, char *firstName, char *lastName, float initialAmount);
 
+void listAscending(bank *state, int start, int end);
+void listDescending(bank *state, int start, int end);
 #endif //YOUCODE_BANK__ACCOUNT_H_

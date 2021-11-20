@@ -19,7 +19,7 @@ void initializeBankState(bank *b) {
 }
 void listMenu(bank *b) {
   char loyaltyDesc[50];
-  sprintf(loyaltyDesc, "Adds %.1f%% loyalty bonus to top 3 accounts", LOYALTY_BONUS_PERCENTAGE);
+  sprintf(loyaltyDesc, "Adds %.1f%% loyalty bonus to top n accounts", LOYALTY_BONUS_PERCENTAGE);
   command commands[] = {
       createCommand("create account", "Create a bank account", createBankAccount),
       createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
@@ -28,6 +28,9 @@ void listMenu(bank *b) {
       createCommand("search", "Search for a bank account by national ID", search),
       createCommand("list a", "List bank accounts by ascending order", listAccountsAscending),
       createCommand("list d", "List bank accounts by descending order", listAccountsDescending),
+      createCommand("list aa",
+                    "List bank accounts by ascending order after a certain amount",
+                    listAfterAccountsAscending),
       createCommand("add loyalty", loyaltyDesc, addLoyaltyBonus),
   };
   size_t commandsLength = sizeof(commands) / sizeof(commands[0]);
