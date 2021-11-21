@@ -83,11 +83,13 @@ void createBankAccount(bank *b) {
     b->accounts[b->accountsCount] = newAccount;
     b->accountsCount++;
     b->sorted = 0;
+    textColorGreen();
     printf("Account with ID '%s' for '%s %s' and amount of '%.2f$' has been created successfully!!\n",
            newAccount.nationalID,
            newAccount.lastName,
            newAccount.firstName,
            newAccount.amount);
+    textColorReset();
 }
 
 void createMultipleBankAccounts(bank *bankState) {
@@ -101,7 +103,9 @@ void createMultipleBankAccounts(bank *bankState) {
 
 void addLoyaltyBonus(bank *state) {
     if (state->accountsCount == 0) {
+        textColorRed();
         printf("There are no accounts yet, create an account first.\n");
+        textColorReset();
         return;
     }
 
@@ -116,12 +120,16 @@ void addLoyaltyBonus(bank *state) {
             state->accounts[i].amount = amount + (amount / 100 * LOYALTY_BONUS_PERCENTAGE);
         }
     }
+    textColorGreen();
     printf("Added loyalty bonus to top %d accounts successfully!!!\n", numberOfAccounts);
+    textColorReset();
 }
 
 void removeBankAccount(bank *state) {
     if (state->accountsCount == 0) {
+        textColorRed();
         printf("There are no accounts yet, create an account first.\n");
+        textColorReset();
         return;
     }
     int accountIndex = getAccountFromUserInput(state);
@@ -138,10 +146,12 @@ void removeBankAccount(bank *state) {
     state->accountsCount = index;
     account acc = state->accounts[accountIndex];
 
+    textColorGreen();
     printf("Account with ID '%s' for user '%s %s' has been removed successfully!\n",
            acc.nationalID,
            acc.lastName,
            acc.firstName);
+    textColorReset();
     free(state->accounts);
     state->accounts = NULL;
     state->accounts = accounts;

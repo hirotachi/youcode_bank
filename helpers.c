@@ -82,5 +82,9 @@ void setColor(int colorNum) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colorNum);
 }
 
+void textColorYellow() {
+    setColor(14);
+}
+
 
 

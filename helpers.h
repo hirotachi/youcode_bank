@@ -25,6 +25,8 @@ void exitProgram(bank *state);
 
 void textColorRed();
 
+void textColorYellow();
+
 void textColorReset();
 
 void textColorGreen();
