@@ -10,22 +10,23 @@
 #define LOYALTY_BONUS_PERCENTAGE 1.3
 
 typedef struct {
-  char nationalID[MAX_NATIONAL_ID_LENGTH];
-  char firstName[MAX_NAME_LENGTH];
-  char lastName[MAX_NAME_LENGTH];
-  float amount;
+    char nationalID[MAX_NATIONAL_ID_LENGTH];
+    char firstName[MAX_NAME_LENGTH];
+    char lastName[MAX_NAME_LENGTH];
+    float amount;
 } account;
 
 typedef struct {
-  account *accounts;
-  size_t accountsSize;
-  int accountsCount;
-  int sorted; // whether the array is sorted or not
+    account *accounts;
+    size_t accountsSize;
+    int accountsCount;
+    int sorted; // whether the array is sorted or not
 } bank;
 
 void startBank();
 
 void createBankAccount(bank *bankState);
+
 void removeBankAccount(bank *state);
 
 void createMultipleBankAccounts(bank *bankState);
@@ -34,5 +35,6 @@ void createMultipleBankAccounts(bank *bankState);
  * adds loyalty bonus to top 3 accounts with the most amount
  * @param state
  */
-void addLoyaltyBonus(bank *state);
+void addBonus(bank *state);
+
 #endif //YOUCODE_BANK__BANK_H_

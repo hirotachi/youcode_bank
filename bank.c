@@ -42,7 +42,7 @@ void listMenu(bank *b) {
                     "List bank accounts by descending order after a certain amount",
                     listAfterAccountsDescending
             ),
-            createCommand("add bonus", loyaltyDesc, addLoyaltyBonus),
+            createCommand("add bonus", loyaltyDesc, addBonus),
             createCommand("quit", "exit program application", exitProgram),
             createCommand("help", "show this commands list", listMenu),
     };
@@ -104,7 +104,7 @@ void createMultipleBankAccounts(bank *bankState) {
     }
 }
 
-void addLoyaltyBonus(bank *state) {
+void addBonus(bank *state) {
     if (state->accountsCount == 0) {
         textColorRed();
         printf("There are no accounts yet, create an account first.\n");
