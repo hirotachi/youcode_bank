@@ -123,7 +123,8 @@ void addLoyaltyBonus(bank *state) {
         }
     }
     textColorGreen();
-    printf("Added loyalty bonus to top %d accounts successfully!!!\n", numberOfAccounts);
+    printf("Added loyalty '%.1f%%' bonus to top %d accounts successfully!!!\n", LOYALTY_BONUS_PERCENTAGE,
+           numberOfAccounts);
     textColorReset();
 }
 

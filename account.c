@@ -226,6 +226,7 @@ int findAfterAmountIndex(bank *state) {
     }
     sortAccounts(state);
 
+
     float highestAmount = state->accounts[state->accountsCount - 1].amount;
     if (highestAmount < amount) {
         textColorRed();
