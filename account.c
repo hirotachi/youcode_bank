@@ -168,15 +168,15 @@ void listAccountsDescending(bank *state) {
 }
 
 void listAfterAccountsAscending(bank *state) {
-    int index = findAfterAmountIndex(state);
-    if (index == -1)return;
-    listAscending(state, index, state->accountsCount);
+    int accountIndex = findAfterAmountIndex(state);
+    if (accountIndex == -1)return;
+    listAscending(state, accountIndex, state->accountsCount);
 }
 
 void listAfterAccountsDescending(bank *state) {
-    int index = findAfterAmountIndex(state);
-    if (index == -1)return;
-    listDescending(state, state->accountsCount, index);
+    int accountIndex = findAfterAmountIndex(state);
+    if (accountIndex == -1)return;
+    listDescending(state, state->accountsCount, accountIndex);
 }
 
 void listAscending(bank *state, int start, int end) {
@@ -184,14 +184,7 @@ void listAscending(bank *state, int start, int end) {
     printf("===========================================\n");
     int order = 1;
     for (int i = start; i < end; ++i) {
-        account acc = state->accounts[i];
-        printf("%d - ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
-               order,
-               acc.nationalID,
-               acc.lastName,
-               acc.firstName,
-               acc.amount
-        );
+        printAccount(state->accounts[i], order);
         order++;
     }
     printf("===========================================\n");
@@ -202,17 +195,20 @@ void listDescending(bank *state, int start, int end) {
     printf("===========================================\n");
     int order = 1;
     for (int i = start - 1; i >= end; --i) {
-        account acc = state->accounts[i];
-        printf("%d - ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
-               order,
-               acc.nationalID,
-               acc.lastName,
-               acc.firstName,
-               acc.amount
-        );
+        printAccount(state->accounts[i], order);
         order++;
     }
     printf("===========================================\n");
+}
+
+void printAccount(account acc, int order) {
+    printf("%d - ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
+           order,
+           acc.nationalID,
+           acc.lastName,
+           acc.firstName,
+           acc.amount
+    );
 }
 
 int findAfterAmountIndex(bank *state) {
