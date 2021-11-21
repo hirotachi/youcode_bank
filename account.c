@@ -228,7 +228,9 @@ int findAfterAmountIndex(bank *state) {
 
     float highestAmount = state->accounts[state->accountsCount - 1].amount;
     if (highestAmount < amount) {
-        printf("the highest amount available is '%.2f$'\n", highestAmount);
+        textColorRed();
+        printf("the highest amount available is '%.2f$'.\n", highestAmount);
+        textColorReset();
         return -1;
     }
 

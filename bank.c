@@ -41,7 +41,7 @@ void listMenu(bank *b) {
                     "List bank accounts by descending order after a certain amount",
                     listAfterAccountsDescending
             ),
-            createCommand("add loyalty", loyaltyDesc, addLoyaltyBonus),
+            createCommand("add bonus", loyaltyDesc, addLoyaltyBonus),
             createCommand("quit", "exit program application", exitProgram),
             createCommand("help", "show this commands list", listMenu),
     };
