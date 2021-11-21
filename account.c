@@ -2,8 +2,8 @@
 // Created by hirotachi on 11/19/21.
 //
 
-#include <malloc.h>
 #include <string.h>
+#include <stdio.h>
 #include "account.h"
 #include "bank.h"
 #include "helpers.h"
