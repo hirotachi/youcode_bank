@@ -55,7 +55,9 @@ void showAndHandleCommands(size_t length, command commands[], bank *bankState, i
     }
 
     if (isCommandFound == 0) {
+        textColorRed();
         printf("Unknown command '%s', please enter a command from the list.\n", enteredCommand);
+        textColorReset();
         showAndHandleCommands(length, commands, bankState, 0);
     }
 }
