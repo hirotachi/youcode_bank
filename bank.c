@@ -23,7 +23,6 @@ void listMenu(bank *b) {
     sprintf(loyaltyDesc, "Adds %.1f%% loyalty bonus to top n accounts", LOYALTY_BONUS_PERCENTAGE);
 
     command commands[] = {
-            createCommand("help", "show this commands list", listMenu),
             createCommand("create account", "Create a bank account", createBankAccount),
             createCommand("remove account", "Remove a bank account", removeBankAccount),
             createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
@@ -44,6 +43,7 @@ void listMenu(bank *b) {
             ),
             createCommand("add loyalty", loyaltyDesc, addLoyaltyBonus),
             createCommand("quit", "exitProgram application", exitProgram),
+            createCommand("help", "show this commands list", listMenu),
     };
 
     size_t commandsLength = sizeof(commands) / sizeof(commands[0]);

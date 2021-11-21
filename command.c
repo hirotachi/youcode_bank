@@ -36,10 +36,11 @@ void showAndHandleCommands(size_t length, command commands[], bank *bankState, i
             printf("%s - %s.\n", com.name, com.description);
         }
         printf("\n");
-        printf("Please Enter a command from the list.\n");
     }
+    printf("Please Enter a command from the list ('help' to show list).\n");
     char enteredCommand[MAX_COMMAND_LENGTH];
     getStringFromUser(enteredCommand, NULL, MAX_COMMAND_LENGTH);
+    printf("\n");
 
     int isCommandFound = 0; // to render error in case command is not found
     for (int i = 0; i < length; ++i) {
@@ -48,7 +49,7 @@ void showAndHandleCommands(size_t length, command commands[], bank *bankState, i
         if (isSame == 0) {
             isCommandFound = 1;
             com.handler(bankState);
-            showAndHandleCommands(length, commands, bankState, 1);
+            showAndHandleCommands(length, commands, bankState, 0);
             break;
         }
     }
