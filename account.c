@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdio.h>
 #include "account.h"
-#include "bank.h"
 #include "helpers.h"
 
 account createAccount(char *nationalID, char *firstName, char *lastName, float initialAmount) {
