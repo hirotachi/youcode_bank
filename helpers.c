@@ -97,8 +97,9 @@ void trimSpaces(char *var) {
         if (var[end] == ' ') end--;
     }
     size_t actualLength = end - start + 1;
-    char result[actualLength + 1];
+    char result[actualLength];
     strncpy(result, var + start, actualLength);
+    result[actualLength] = '\0';
     strcpy(var, result);
 }
 

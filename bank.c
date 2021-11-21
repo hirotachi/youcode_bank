@@ -116,15 +116,30 @@ void addBonus(bank *state) {
 
     int numberOfAccounts;
     getIntFromUser(&numberOfAccounts, "Enter number of accounts to add loyalty bonus to: ");
+
+
+    float percentage = LOYALTY_BONUS_PERCENTAGE;
+//    add ability to add dynamic percentage
+//    char message[100];
+//    do {
+//        sprintf(message, "Enter percentage to add to top %d accounts: ", numberOfAccounts);
+//        getFloatFromUser(&percentage, message);
+//        if (percentage < 0.1) {
+//            textColorRed();
+//            printf("Invalid percentage '%.2f%%', please enter 0.1% and higher.\n", percentage);
+//            textColorReset();
+//        }
+//    } while (percentage < 0.1);
+
     for (int i = state->accountsCount - 1; i >= 0; --i) {
         int isLoyal = state->accountsCount - i <= numberOfAccounts ? 1 : 0;
         if (isLoyal == 1) {
             float amount = state->accounts[i].amount;
-            state->accounts[i].amount = amount + (amount / 100 * LOYALTY_BONUS_PERCENTAGE);
+            state->accounts[i].amount = amount + (amount / 100 * percentage);
         }
     }
     textColorGreen();
-    printf("Added loyalty '%.1f%%' bonus to top %d accounts successfully!!!\n", LOYALTY_BONUS_PERCENTAGE,
+    printf("Added loyalty '%.1f%%' bonus to top %d accounts successfully!!!\n", percentage,
            numberOfAccounts);
     textColorReset();
 }
