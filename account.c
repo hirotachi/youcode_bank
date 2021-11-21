@@ -125,21 +125,6 @@ void deposit(bank *state) {
     textColorReset();
 }
 
-void search(bank *state) {
-    if (state->accountsCount == 0) {
-        textColorRed();
-        printf("There are no accounts yet, create an account first.\n");
-        textColorReset();
-        return;
-    }
-    int accountIndex = getAccountFromUserInput(state);
-    if (accountIndex == -1) return;
-    account acc = state->accounts[accountIndex];
-    textColorYellow();
-    printf("This Account belongs to '%s %s' and has '%.2f$'.\n", acc.lastName, acc.firstName, acc.amount);
-    textColorReset();
-}
-
 void listAccountsAscending(bank *state) {
     if (state->accountsCount == 0) {
         textColorRed();
@@ -149,6 +134,7 @@ void listAccountsAscending(bank *state) {
     }
     listAscending(state, 0, state->accountsCount);
 }
+
 
 void sortAccounts(bank *state) {
     if (state->accountsCount <= 1 || state->sorted == 1) return;
@@ -241,6 +227,66 @@ int findAfterAmountIndex(bank *state) {
         }
     }
     return index;
+}
+
+void search(bank *state) {
+    if (state->accountsCount == 0) {
+        textColorRed();
+        printf("There are no accounts yet, create an account first.\n");
+        textColorReset();
+        return;
+    }
+    int accountIndex = getAccountFromUserInput(state);
+    if (accountIndex == -1) return;
+    account acc = state->accounts[accountIndex];
+    textColorYellow();
+    printf("This Account belongs to '%s %s' and has '%.2f$'.\n", acc.lastName, acc.firstName, acc.amount);
+    textColorReset();
+}
+
+void searchByQuery(bank *state) {
+    if (state->accountsCount == 0) {
+        textColorRed();
+        printf("There are no accounts yet, create an account first.\n");
+        textColorReset();
+        return;
+    }
+    int maxLength = 25;
+    char query[maxLength];
+    getStringFromUser(query, "Please Enter text to search for: ", maxLength);
+    if (strlen(query) == 0) {
+        textColorRed();
+        printf("empty query provided, aborting search.\n");
+        textColorReset();
+        return;
+    }
+
+    int foundCount = 0;
+    for (int i = 0; i < state->accountsCount; ++i) {
+        account acc = state->accounts[i];
+        if (strstr(acc.nationalID, query) != NULL) {
+            foundCount++;
+        }
+    }
+    if (foundCount == 0) {
+        textColorRed();
+        printf("'%s' has 0 matches in the database.\n", query);
+        textColorReset();
+        return;
+    }
+
+    sortAccounts(state);
+    printf("Search result for '%s' %d matches: \n", query, foundCount);
+    printf("============================================\n");
+    int order = 1;
+    for (int i = state->accountsCount - 1; i >= 0; --i) {
+        account acc = state->accounts[i];
+        if (strstr(acc.nationalID, query) != NULL) {
+            printAccount(acc, order);
+            order++;
+        }
+    }
+    printf("============================================\n");
 }
 
 

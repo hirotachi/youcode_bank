@@ -28,7 +28,8 @@ void listMenu(bank *b) {
             createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
             createCommand("withdraw", "Withdraw from an account", withdraw),
             createCommand("deposit", "Deposit money to an account", deposit),
-            createCommand("search", "Search for a bank account by national ID", search),
+            createCommand("search", "Find first account with exact national ID", search),
+            createCommand("search q", "List all accounts that include query in national ID", searchByQuery),
             createCommand("list a", "List bank accounts by ascending order", listAccountsAscending),
             createCommand("list d", "List bank accounts by descending order", listAccountsDescending),
             createCommand(

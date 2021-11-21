@@ -25,7 +25,17 @@ int findAccountIndexByID(bank *bankState, char *id);
  */
 int getAccountFromUserInput(bank *bankState);
 
+/**
+ * find one account equal to entered ID
+ * @param state
+ */
 void search(bank *state);
+
+/**
+ * print all accounts that include substring of ID
+ * @param state
+ */
+void searchByQuery(bank *state);
 
 void listAccountsAscending(bank *state);
 
