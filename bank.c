@@ -42,7 +42,7 @@ void listMenu(bank *b) {
                     listAfterAccountsDescending
             ),
             createCommand("add loyalty", loyaltyDesc, addLoyaltyBonus),
-            createCommand("quit", "exitProgram application", exitProgram),
+            createCommand("quit", "exit program application", exitProgram),
             createCommand("help", "show this commands list", listMenu),
     };
 
@@ -62,7 +62,9 @@ void createBankAccount(bank *b) {
 
     int index = findAccountIndexByID(b, nationalID);
     if (index != -1) {
+        textColorRed();
         printf("account with ID '%s' already exists.\n", nationalID);
+        textColorReset();
         return createBankAccount(b);
     }
     char firstName[MAX_NAME_LENGTH], lastName[MAX_NAME_LENGTH];

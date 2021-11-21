@@ -35,7 +35,9 @@ int getAccountFromUserInput(bank *b) {
     int accountIndex = findAccountIndexByID(b, nationalID);
     if (accountIndex != -1) return accountIndex;
 
+    textColorRed();
     printf("account with id '%s' doesnt exist.\n", nationalID);
+    textColorReset();
     return -1;
 }
 
@@ -62,7 +64,9 @@ void withdraw(bank *state) {
     do { // avoid withdrawing more than the account has
         getFloatFromUser(&amountToWithdraw, message);
         if (amountToWithdraw > acc.amount) {
+            textColorRed();
             printf("cannot withdraw more than '%.2f$'.\n", acc.amount);
+            textColorReset();
         } else {
             canWithdraw = 1;
         }
@@ -73,6 +77,7 @@ void withdraw(bank *state) {
 
     state->sorted = 0; // mark array as unsorted
 
+    textColorGreen();
     printf("'%.2f$' has been withdrawn successfully from account '%s' of user '%s %s' new amount is '%.2f$'.\n",
            amountToWithdraw,
            acc.nationalID,
@@ -80,6 +85,7 @@ void withdraw(bank *state) {
            acc.firstName,
            acc.amount
     );
+    textColorReset();
 }
 
 void deposit(bank *state) {
