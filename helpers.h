@@ -38,4 +38,11 @@ void textColorGreen();
  */
 void setColor(int colorNum);
 
+
+/**
+ * remove leading and trailing spaces from string
+ * @param var
+ */
+void trimSpaces(char *var);
+
 #endif //YOUCODE_BANK__HELPERS_H_

@@ -12,6 +12,7 @@ void getStringFromUser(char *var, char *message, int maxLength) {
     printf(message == NULL ? "> " : "%s", message);
     fgets(var, maxLength, stdin);
     var[strcspn(var, "\n")] = '\0'; // fix newline issue
+    trimSpaces(var);
 }
 
 void getFloatFromUser(float *var, char *message) {
@@ -84,6 +85,21 @@ void setColor(int colorNum) {
 
 void textColorYellow() {
     setColor(14);
+}
+
+void trimSpaces(char *var) {
+    size_t length = strlen(var);
+    if (length == 0) return;
+    size_t start = 0;
+    size_t end = length - 1;
+    for (int i = 0; i < length; ++i) {
+        if (var[start] == ' ')start++;
+        if (var[end] == ' ') end--;
+    }
+    size_t actualLength = end - start + 1;
+    char result[actualLength];
+    strncpy(result, var + start, actualLength);
+    strcpy(var, result);
 }
 
 
