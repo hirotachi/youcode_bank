@@ -199,14 +199,18 @@ void printAccount(account acc, int order) {
 
 int findAfterAmountIndex(bank *state) {
     if (state->accountsCount == 0) {
+        textColorRed();
         printf("There are no accounts yet, create an account first.\n");
+        textColorReset();
         return -1;
     }
     float amount;
     getFloatFromUser(&amount, "Enter amount to list after: ");
     if (amount <= 0) {
+        textColorRed();
         printf("Enter a positive amount.\n");
-        return -1;
+        textColorReset();
+        return findAfterAmountIndex(state);
     }
     sortAccounts(state);
 
