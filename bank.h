@@ -37,4 +37,5 @@ void createMultipleBankAccounts(bank *bankState);
  */
 void addBonus(bank *state);
 
+void showAverage(bank *state);
 #endif //YOUCODE_BANK__BANK_H_

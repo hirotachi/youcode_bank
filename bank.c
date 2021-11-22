@@ -28,6 +28,7 @@ void listMenu(bank *b) {
             createCommand("create accounts", "Create multiple accounts", createMultipleBankAccounts),
             createCommand("withdraw", "Withdraw from an account", withdraw),
             createCommand("deposit", "Deposit money to an account", deposit),
+            createCommand("average", "Show average of all accounts", showAverage),
             createCommand("search", "Find first account with exact national ID", search),
             createCommand("search q", "List all accounts that include query in national ID", searchByQuery),
             createCommand("list a", "List bank accounts by ascending order", listAccountsAscending),
@@ -174,6 +175,16 @@ void removeBankAccount(bank *state) {
     free(state->accounts);
     state->accounts = NULL;
     state->accounts = accounts;
+}
+
+void showAverage(bank *state) {
+    float total = 0;
+    for (int i = 0; i < state->accountsCount; ++i) {
+        total += state->accounts[i].amount;
+    }
+    textColorYellow();
+    printf("The average of all %d accounts is '%.2f'", state->accountsCount, total / state->accountsCount);
+    textColorReset();
 }
 
 
