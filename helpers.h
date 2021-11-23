@@ -31,6 +31,8 @@ void textColorReset();
 
 void textColorGreen();
 
+void clearTerminal();
+
 
 /**
  * change output text color

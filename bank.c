@@ -46,6 +46,7 @@ void listMenu(bank *b) {
             createCommand("add bonus", loyaltyDesc, addBonus),
             createCommand("quit", "exit program application", exitProgram),
             createCommand("help", "show this commands list", listMenu),
+            createCommand("clear", "clear terminal", clearTerminal),
     };
 
     size_t commandsLength = sizeof(commands) / sizeof(commands[0]);

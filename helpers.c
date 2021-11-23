@@ -103,5 +103,9 @@ void trimSpaces(char *var) {
     strcpy(var, result);
 }
 
+void clearTerminal() {
+    system("cls");
+}
+
 
 
