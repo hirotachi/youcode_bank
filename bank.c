@@ -132,16 +132,23 @@ void addBonus(bank *state) {
 //        }
 //    } while (percentage < 0.1);
 
-    for (int i = state->accountsCount - 1; i >= 0; --i) {
-        int isLoyal = state->accountsCount - i <= numberOfAccounts ? 1 : 0;
-        if (isLoyal == 1) {
-            float amount = state->accounts[i].amount;
-            state->accounts[i].amount = amount + (amount / 100 * percentage);
+
+    int count = numberOfAccounts;
+    int index= state->accountsCount - 1;
+    int changedAccounts =0;
+    while(count > 0 && index >= 0) {
+        float amount = state->accounts[index].amount;
+        if(amount != state->accounts[index - 1].amount) {
+            count--;
         }
+        state->accounts[index].amount = amount + (amount / 100 * percentage);
+        changedAccounts++;
+        index--;
     }
+
     textColorGreen();
     printf("Added loyalty '%.1f%%' bonus to top %d accounts successfully!!!\n", percentage,
-           numberOfAccounts);
+           changedAccounts);
     textColorReset();
 }
 
