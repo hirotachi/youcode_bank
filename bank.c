@@ -20,7 +20,7 @@ void initializeBankState(bank *b) {
 
 void listMenu(bank *b) {
     char loyaltyDesc[50];
-    sprintf(loyaltyDesc, "Adds %.1f%% loyalty bonus to top n accounts", LOYALTY_BONUS_PERCENTAGE);
+    sprintf(loyaltyDesc, "Adds %.1f%% loyalty bonus to top n highest balances", LOYALTY_BONUS_PERCENTAGE);
 
     command commands[] = {
             createCommand("create account", "Create a bank account", createBankAccount),
