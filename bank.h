@@ -13,7 +13,7 @@ typedef struct {
     char nationalID[MAX_NATIONAL_ID_LENGTH];
     char firstName[MAX_NAME_LENGTH];
     char lastName[MAX_NAME_LENGTH];
-    float amount;
+    float balance;
 } account;
 
 typedef struct {
@@ -32,10 +32,11 @@ void removeBankAccount(bank *state);
 void createMultipleBankAccounts(bank *bankState);
 
 /**
- * adds loyalty bonus to top 3 accounts with the most amount
+ * adds loyalty bonus to top 3 accounts with the most balance
  * @param state
  */
 void addBonus(bank *state);
 
 void showAverage(bank *state);
+
 #endif //YOUCODE_BANK__BANK_H_
