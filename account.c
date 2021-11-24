@@ -167,6 +167,7 @@ void listAfterAccountsDescending(bank *state) {
 
 void listAscending(bank *state, int start, int end) {
     sortAccounts(state);
+    printf("List of %d accounts: \n", end - start);
     printf("===========================================\n");
     int order = 1;
     for (int i = start; i < end; ++i) {
@@ -178,6 +179,7 @@ void listAscending(bank *state, int start, int end) {
 
 void listDescending(bank *state, int start, int end) {
     sortAccounts(state);
+    printf("List of %d accounts: \n", start - end);
     printf("===========================================\n");
     int order = 1;
     for (int i = start - 1; i >= end; --i) {
