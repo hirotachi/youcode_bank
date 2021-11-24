@@ -47,7 +47,7 @@ void listAfterAccountsAscending(bank *state);
 
 void sortAccounts(bank *state);
 
-account createAccount(char *nationalID, char *firstName, char *lastName, float initialAmount);
+account createAccount(char *nationalID, char *firstName, char *lastName, float initialBalance);
 
 void listAscending(bank *state, int start, int end);
 

@@ -48,7 +48,7 @@ int partition(account *accounts, int low, int high) {
     account pivot = accounts[high];
     int i = low - 1;
     for (int j = low; j <= high; ++j) {
-        if (accounts[j].amount < pivot.amount) {
+        if (accounts[j].balance < pivot.balance) {
             i++;
             swap(&accounts[i], &accounts[j]);
         }

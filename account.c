@@ -7,9 +7,9 @@
 #include "account.h"
 #include "helpers.h"
 
-account createAccount(char *nationalID, char *firstName, char *lastName, float initialAmount) {
+account createAccount(char *nationalID, char *firstName, char *lastName, float initialBalance) {
     account result;
-    result.amount = initialAmount;
+    result.balance = initialBalance;
 
     strcpy(result.nationalID, nationalID);
     strcpy(result.firstName, firstName);
@@ -55,7 +55,7 @@ void withdraw(bank *state) {
 
     account acc = state->accounts[accountIndex];
     char message[50];
-    sprintf(message, "Enter amount to withdraw max is '%.2f$': ", acc.amount);
+    sprintf(message, "Enter an amount to withdraw max is '%.2f$': ", acc.balance);
 
     float amountToWithdraw;
 
@@ -63,27 +63,27 @@ void withdraw(bank *state) {
 
     do { // avoid withdrawing more than the account has
         getFloatFromUser(&amountToWithdraw, message);
-        if (amountToWithdraw > acc.amount) {
+        if (amountToWithdraw > acc.balance) {
             textColorRed();
-            printf("cannot withdraw more than '%.2f$'.\n", acc.amount);
+            printf("cannot withdraw more than '%.2f$'.\n", acc.balance);
             textColorReset();
         } else {
             canWithdraw = 1;
         }
     } while (canWithdraw == 0);
 
-    acc.amount -= amountToWithdraw;
+    acc.balance -= amountToWithdraw;
     state->accounts[accountIndex] = acc;
 
     state->sorted = 0; // mark array as unsorted
 
     textColorGreen();
-    printf("'%.2f$' has been withdrawn successfully from account '%s' of user '%s %s' new amount is '%.2f$'.\n",
+    printf("'%.2f$' has been withdrawn successfully from account '%s' of user '%s %s' new balance is '%.2f$'.\n",
            amountToWithdraw,
            acc.nationalID,
            acc.lastName,
            acc.firstName,
-           acc.amount
+           acc.balance
     );
     textColorReset();
 }
@@ -106,22 +106,22 @@ void deposit(bank *state) {
         getFloatFromUser(&amountToAdd, "Enter Amount to deposit: ");
         if (amountToAdd <= 0) {
             textColorRed();
-            printf("You're haven't added anything to the account add a positive amount.\n");
+            printf("You haven't added anything to the account add a positive number.\n");
             textColorReset();
         }
     } while (amountToAdd <= 0);
-    acc.amount += amountToAdd;
+    acc.balance += amountToAdd;
     state->accounts[accountIndex] = acc;
 
     state->sorted = 0; // mark array as unsorted
 
     textColorGreen();
-    printf("'%.2f$' has been added to account '%s' for '%s %s' successfully new amount is '%.2f$'.\n",
+    printf("'%.2f$' has been added to account '%s' for '%s %s' successfully new balance is '%.2f$'.\n",
            amountToAdd,
            acc.nationalID,
            acc.lastName,
            acc.firstName,
-           acc.amount);
+           acc.balance);
     textColorReset();
 }
 
@@ -190,12 +190,12 @@ void listDescending(bank *state, int start, int end) {
 }
 
 void printAccount(account acc, int order) {
-    printf("%d - ID:'%s' Name:'%s %s' amount:'%.2f$'\n",
+    printf("%d - ID:'%s' Name:'%s %s' Balance:'%.2f$'\n",
            order,
            acc.nationalID,
            acc.lastName,
            acc.firstName,
-           acc.amount
+           acc.balance
     );
 }
 
@@ -207,27 +207,27 @@ int findAfterAmountIndex(bank *state) {
         return -1;
     }
     float amount;
-    getFloatFromUser(&amount, "Enter amount to list after: ");
+    getFloatFromUser(&amount, "Enter a balance to list after: ");
     if (amount <= 0) {
         textColorRed();
-        printf("Enter a positive amount.\n");
+        printf("Enter a positive number.\n");
         textColorReset();
         return findAfterAmountIndex(state);
     }
     sortAccounts(state);
 
 
-    float highestAmount = state->accounts[state->accountsCount - 1].amount;
+    float highestAmount = state->accounts[state->accountsCount - 1].balance;
     if (highestAmount < amount) {
         textColorRed();
-        printf("the highest amount available is '%.2f$'.\n", highestAmount);
+        printf("the highest balance available is '%.2f$'.\n", highestAmount);
         textColorReset();
         return -1;
     }
 
     int index = 0;
     for (int i = 0; i < state->accountsCount; ++i) {
-        if (state->accounts[i].amount >= amount) {
+        if (state->accounts[i].balance >= amount) {
             index = i;
             break;
         }
@@ -246,7 +246,7 @@ void search(bank *state) {
     if (accountIndex == -1) return;
     account acc = state->accounts[accountIndex];
     textColorYellow();
-    printf("This Account belongs to '%s %s' and has '%.2f$'.\n", acc.lastName, acc.firstName, acc.amount);
+    printf("This Account belongs to '%s %s' and has a balance of '%.2f$'.\n", acc.lastName, acc.firstName, acc.balance);
     textColorReset();
 }
 
