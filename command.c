@@ -45,7 +45,7 @@ void showAndHandleCommands(size_t length, command commands[], bank *bankState, i
     int isCommandFound = 0; // to render error in case command is not found
     for (int i = 0; i < length; ++i) {
         command com = commands[i];
-        int isSame = strcmp(enteredCommand, com.name);
+        int isSame = stricmp(enteredCommand, com.name);
         if (isSame == 0) {
             isCommandFound = 1;
             com.handler(bankState);

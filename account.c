@@ -20,7 +20,7 @@ account createAccount(char *nationalID, char *firstName, char *lastName, float i
 int findAccountIndexByID(bank *bankState, char *id) {
     if (bankState->accountsSize != 0) {
         for (int i = 0; i < bankState->accountsCount; ++i) {
-            int isSame = strcmp(bankState->accounts[i].nationalID, id);
+            int isSame = stricmp(bankState->accounts[i].nationalID, id);
             if (isSame == 0) {
                 return i;
             }
