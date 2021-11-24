@@ -191,7 +191,7 @@ void showAverage(bank *state) {
         total += state->accounts[i].amount;
     }
     textColorYellow();
-    printf("The average of all %d accounts is '%.2f'", state->accountsCount, total / state->accountsCount);
+    printf("The average of all %d accounts is '%.2f$'.", state->accountsCount, total / state->accountsCount);
     textColorReset();
 }
 
