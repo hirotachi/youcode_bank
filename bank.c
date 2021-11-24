@@ -135,14 +135,14 @@ void addBonus(bank *state) {
 
 
     int count = numberOfAccounts;
-    int index= state->accountsCount - 1;
-    int changedAccounts =0;
-    while(count > 0 && index >= 0) {
+    int index = state->accountsCount - 1;
+    int changedAccounts = 0;
+    while (count > 0 && index >= 0) {
         float amount = state->accounts[index].amount;
-        if(amount != state->accounts[index - 1].amount) {
+        if (amount != state->accounts[index - 1].amount) {
             count--;
         }
-        state->accounts[index].amount = amount + (amount / 100 * percentage);
+        state->accounts[index].amount += (amount / 100 * percentage);
         changedAccounts++;
         index--;
     }
